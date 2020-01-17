@@ -40,7 +40,7 @@ productRouter.put("/:id", async (req, res) => {
                                        brand= $3,
                                        category= $4,
                                        price = $5
-                                       WHERE id = $6`,
+                                       WHERE _id = $6`,
         [req.body.name, req.body.description, req.body.brand, req.body.category, req.body.price, req.params.id]);
 
         if (result.rowCount === 0)
@@ -55,12 +55,12 @@ productRouter.put("/:id", async (req, res) => {
 
 productRouter.delete("/:id", async (req, res) => {
   try {
-      const result = await db.query(`DELETE FROM products WHERE id = $1`, [req.params._id])
+      const result = await db.query(`DELETE FROM products WHERE _id = $1`, [req.params.id])
 
       if (result.rowCount === 0)
           res.status(404).send("not found")
       else
-          res.send("OK")
+          res.send("Product Deleted")
   }
   catch (ex) {
       res.status(500).send(ex)
